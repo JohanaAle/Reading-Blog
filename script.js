@@ -1,35 +1,62 @@
-function App() {}
+var nextBtn = document.querySelector('.next'),
+    prevBtn = document.querySelector('.prev'),
+    carousel = document.querySelector('.carousel'),
+    list = document.querySelector('.list'),
+    item = document.querySelectorAll('.item'),
+    runningTime = document.querySelector('.carousel .timeRunning')
 
-window.onload = function (event) {
-    var app = new App();
-    window.app = app;
-};
+let timeRunning = 3000
+let timeAutoNext = 7000
 
-App.prototype.processingButton = function(event) {
-    const btn = event.currentTarget;
-    const slickList = event.currentTarget.parentNode;
-    const track = event.currentTarget.parentNode.querySelector('#track');
-    const slick = track.querySelectorAll('.slick');
-
-    const slickWidth = slick[0].offsetWidth;
-    
-    const trackWidth = track.offsetWidth;
-    const listWidth = slickList.offsetWidth;
-
-    track.style.left == ""  ? leftPosition = track.style.left = 0 : leftPosition = parseFloat(track.style.left.slice(0, -2) * -1);
-
-    btn.dataset.button == "button-prev" ? prevAction(leftPosition,slickWidth,track) : nextAction(leftPosition,trackWidth,listWidth,slickWidth,track)
+nextBtn.onclick = function () {
+    showSlider('next')
 }
 
-let prevAction = (leftPosition,slickWidth,track) => {
-    if(leftPosition > 0) {
-        console.log("entro 2")
-        track.style.left = `${-1 * (leftPosition - slickWidth)}px`;
+prevBtn.onclick = function () {
+    showSlider('prev')
+}
+
+let runTimeOut
+
+let runNextAuto = setTimeout(() => {
+    nextBtn.click()
+}, timeAutoNext)
+
+
+function resetTimeAnimation() {
+    runningTime.style.animation = 'none'
+    runningTime.offsetHeight /* trigger reflow */
+    runningTime.style.animation = null
+    runningTime.style.animation = 'runningTime 7s linear 1 forwards'
+}
+
+
+function showSlider(type) {
+    let sliderItemsDom = list.querySelectorAll('.carousel .list .item')
+    if (type === 'next') {
+        list.appendChild(sliderItemsDom[0])
+        carousel.classList.add('next')
+    } else {
+        list.prepend(sliderItemsDom[sliderItemsDom.length - 1])
+        carousel.classList.add('prev')
     }
+
+    clearTimeout(runTimeOut)
+
+    runTimeOut = setTimeout(() => {
+        carousel.classList.remove('next')
+        carousel.classList.remove('prev')
+    }, timeRunning)
+
+
+    clearTimeout(runNextAuto)
+    runNextAuto = setTimeout(() => {
+        nextBtn.click()
+    }, timeAutoNext)
+
+    resetTimeAnimation() // Reset the running time animation
 }
 
-let nextAction = (leftPosition,trackWidth,listWidth,slickWidth,track) => {
-    if(leftPosition < (trackWidth - listWidth)) {
-        track.style.left = `${-1 * (leftPosition + slickWidth)}px`;
-    }
-}
+
+// Start the initial animation 
+resetTimeAnimation()
