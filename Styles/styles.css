@@ -1,13 +1,10 @@
-X
-
-header{
-    
+header {
   font-family: "Protest Revolution", sans-serif;
   font-weight: 400;
   font-style: normal;
 }
 
-.nav{
+.nav {
   width: 100%;
   display: flex;
   align-items: center;
@@ -15,35 +12,39 @@ header{
   padding: 0;
   transition: all 0.5s ease;
 }
-.logo{
+
+.logo {
   font-size: 25px;
   font-weight: 100;
   color: black;
 }
-.menu{
+
+.menu {
   display: flex;
 }
-.menu li{
+
+.menu li {
   list-style: none;
   margin: 5px;
 }
-.menu li a{
+
+.menu li a {
   color: black;
   text-decoration: none;
   font-weight: bold;
   transition: all 0.5s ease;
 }
-.menu li a:hover{
+
+.menu li a:hover {
   padding: 0;
   background: #fff;
   color: black;
   border-radius: 15px;
 }
 
-
 /* Carousel */
 
-.carousel{
+.carousel {
   width: 100%;
   height: 500px;
   overflow: hidden;
@@ -55,7 +56,7 @@ header{
   font-family: 'Poppins', sans-serif;
 }
 
-.carousel .list .item{
+.carousel .list .item {
   width: 150px;
   height: 150px;
   position: absolute;
@@ -70,8 +71,29 @@ header{
   transition: 1s;
 }
 
+/* Ajuste necesario para controlar las imágenes cargadas vía HTML <img> */
+/* --- BLOQUE CORREGIDO --- */
+
+.carousel .list .item img {
+  width: 100%;
+  height: 100%;
+  
+  /* ESTA ES LA LÍNEA CLAVE PARA PANTALLAS GRANDES: */
+  object-fit: contain; /* Ajusta la imagen completa dentro del marco, sin recortar */
+  
+  object-position: center; /* Centra la portada en el espacio disponible */
+  background-color: rgba(0,0,0,0.5); /* Opcional: añade un fondo oscuro suave si la portada no llena todo el ancho */
+  border-radius: inherit;
+}
+
+/* Además, asegúrate de que el contenedor principal del carrusel mantenga su altura */
+.carousel {
+  /* ... tu código existente ... */
+  height: 500px; /* Importante mantener una altura fija */
+}
+
 .carousel .list .item:nth-child(1),
-.carousel .list .item:nth-child(2){
+.carousel .list .item:nth-child(2) {
   top: 0;
   left: 0;
   transform: translate(0, 0);
@@ -80,32 +102,28 @@ header{
   height: 100%;
 }
 
-.carousel .list .item:nth-child(3){
-  left: 67%;
+.carousel .list .item:nth-child(3) {
+  left: 55%;
 }
 
-.carousel .list .item:nth-child(4){
-  left: calc(67% + 200px);
+.carousel .list .item:nth-child(4) {
+  left: calc(55% + 170px);
 }
 
-.carousel .list .item:nth-child(5){
-  left: calc(67% + 400px);
+.carousel .list .item:nth-child(5) {
+  left: calc(55% + 340px);
 }
 
-.carousel .list .item:nth-child(6){
-  left: calc(67% + 600px);
+.carousel .list .item:nth-child(6) {
+  left: calc(55% + 510px);
 }
 
-.carousel .list .item:nth-child(n+7){
-  left: calc(67% + 800px);
+.carousel .list .item:nth-child(n+7) {
+  left: calc(55% + 680px);
   opacity: 0;
 }
 
-
-
-
-
-.list .item .content{
+.list .item .content {
   position: absolute;
   top: 50%;
   left: 100px;
@@ -116,24 +134,22 @@ header{
   display: none;
 }
 
-.list .item:nth-child(2) .content{
+.list .item:nth-child(2) .content {
   display: block;
 }
 
-.content .title{
+.content .title {
   font-size: 60px;
   text-transform: uppercase;
   color: #ffffffcb;
   font-weight: bold;
   line-height: 1;
   text-shadow: 3px 4px 4px rgba(0, 0, 0, 0.8);
-
   opacity: 0;
   animation: animate 1s ease-in-out 0.3s 1 forwards;
 }
 
-
-.content .des{
+.content .des {
   margin-top: 20px;
   margin-bottom: 20px;
   font-size: 18px;
@@ -141,29 +157,27 @@ header{
   opacity: 0;
   animation: animate 1s ease-in-out 0.9s 1 forwards;
 }
-  
 
 @keyframes animate {
-  
-  from{
-      opacity: 0;
-      transform: translate(0, 100px);
-      filter: blur(33px);
+  from {
+    opacity: 0;
+    transform: translate(0, 100px);
+    filter: blur(33px);
   }
-
-  to{
-      opacity: 1;
-      transform: translate(0);
-      filter: blur(0);
+  to {
+    opacity: 1;
+    transform: translate(0);
+    filter: blur(0);
   }
 }
 
 /* next prev arrows */
 
-.arrows{
+.arrows {
   position: absolute;
   top: 80%;
-  right: 52%;
+  left: 55%;
+  transform: translateX(-100%);
   z-index: 100;
   width: 300px;
   max-width: 30%;
@@ -172,7 +186,7 @@ header{
   align-items: center;
 }
 
-.arrows button{
+.arrows button {
   width: 50px;
   height: 50px;
   border-radius: 50%;
@@ -187,14 +201,13 @@ header{
   cursor: pointer;
 }
 
-.arrows button:hover{
+.arrows button:hover {
   background: #fff;
   color: #000;
 }
 
-
 /* time running */
-.carousel .timeRunning{
+.carousel .timeRunning {
   position: absolute;
   z-index: 1000;
   width: 0%;
@@ -206,25 +219,27 @@ header{
 }
 
 @keyframes runningTime {
-  
-  from{width: 0%;}
-  to{width: 100%;}
-
+  from {
+    width: 0%;
+  }
+  to {
+    width: 100%;
+  }
 }
-/*fin de carrusel*/
 
+/* Fin de carrusel */
 
-body{
+body {
   background-image: url(/assets/dragon.jpg);
   margin: 0;
   padding: 0;
-  
 }
-nav{
+
+nav {
   font-family: "Protest Revolution", sans-serif;
 }
 
-h3{
+h3 {
   margin-top: 50px;
   align-items: center;
   justify-content: center;
@@ -236,12 +251,12 @@ h3{
   text-shadow: 2px 2px 5px floralwhite;
 }
 
-/*CARDS*/
+/* CARDS */
 
 div.gallery {
   margin: 5px;
   border: 1px solid #171817;
-  float:left;
+  float: left;
   width: 300px;
   flex-wrap: wrap;
   justify-content: center;
@@ -267,21 +282,24 @@ div.desc {
   color: #fff;
   text-shadow: 3px 3px 5px rgb(212, 41, 29);
 }
-body p{
-  margin: 5px 5;
+
+body p {
+  margin: 5px 5px;
 }
-h1{
+
+h1 {
   font-family: "Protest Revolution", sans-serif;
   text-shadow: 2px 2px 5px floralwhite;
 }
 
-.gallery a{
+.gallery a {
   color: rgb(0, 0, 0);
   background-color: #fff;
   border-radius: 2px;
   text-decoration: none;
   margin-bottom: 5px;
 }
-.gallery a:hover{
+
+.gallery a:hover {
   color: rgb(10, 14, 236);
 }
